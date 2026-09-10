@@ -1,6 +1,4 @@
-# Modul 1 - Penyiapan Lingkungan Pengembangan Web Modern
-
-### Data Praktikan
+# Data Praktikan
 * **Nama:** Hana Nur Fathiyyah
 * **NIM:** H1H024017
 * **Program Studi:** S1 Teknik Komputer
@@ -8,7 +6,13 @@
 * **Mata Kuliah:** Praktikum Pemrograman Web II
 * **Tahun Akademik:** 2026/2027
 
-## Daftar Isi
+## Daftar Isi Modul
+1. [Modul 1](#Modul-1-Penyiapan-Lingkungan-Pengembangan-Web-Modern)
+2. [Modul 2]()
+
+# Modul 1 - Penyiapan Lingkungan Pengembangan Web Modern
+
+## Daftar Isi Modul 1
 1. [Prasyarat Perangkat Lunak](#1-prasyarat-perangkat-lunak)
 2. [Struktur Repositori](#2-struktur-repositori)
 3. [Panduan Menjalankan Proyek](#3-panduan-menjalankan-proyek)
