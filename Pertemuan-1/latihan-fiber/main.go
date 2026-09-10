@@ -10,12 +10,12 @@ func main() {
 	// Inisialisasi aplikasi Fiber
 	app := fiber.New()
 
-	// Endpoint dasar (Langkah 6)
+	// Endpoint dasar
 	app.Get("/", func(c fiber.Ctx) error {
 		return c.SendString("Halo Pemrograman Web II")
 	})
 
-	// Endpoint JSON info sistem (Langkah 7)
+	// Endpoint JSON info sistem
 	app.Get("/api/info", func(c fiber.Ctx) error {
 		return c.JSON(fiber.Map{
 			"aplikasi": "Latihan Fiber",
@@ -24,7 +24,7 @@ func main() {
 		})
 	})
 
-	// TUGAS 1: Endpoint GET /api/mahasiswa
+	// Endpoint GET /api/mahasiswa
 	app.Get("/api/mahasiswa", func(c fiber.Ctx) error {
 		return c.JSON(fiber.Map{
 			"nim":   "H1H024017",
