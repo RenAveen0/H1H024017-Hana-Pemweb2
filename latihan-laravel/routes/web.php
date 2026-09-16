@@ -31,3 +31,22 @@ use App\Http\Controllers\MatakuliahController;
 
 Route::get('/matakuliah-praktikum', [MatakuliahController::class, 'index'])->name('matakuliah.index');
 Route::get('/matakuliah-praktikum/{kode}', [MatakuliahController::class, 'show'])->name('matakuliah.show');
+
+use App\Http\Controllers\MahasiswaWebController;
+
+Route::get('/mahasiswa-data', [MahasiswaWebController::class, 'index'])->name('mahasiswa.data');
+
+Route::get('/mahasiswa-data/{id}', [MahasiswaWebController::class, 'show'])->name('mahasiswa.show');
+
+Route::get('/mahasiswa-top-tk', [MahasiswaWebController::class, 'topTk'])->name('mahasiswa.topTk');
+Route::get('/top-tk', function () {
+    $topMahasiswaTK = \App\Models\Mahasiswa::with('programStudi')
+        ->whereHas('programStudi', function ($query) {
+            $query->where('nama', 'Teknik Komputer');
+        })
+        ->orderBy('ipk', 'desc')
+        ->take(10)
+        ->get();
+
+    return response()->json($topMahasiswaTK);
+});
