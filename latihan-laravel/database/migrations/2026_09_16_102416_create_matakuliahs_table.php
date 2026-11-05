@@ -12,8 +12,8 @@ return new class extends Migration
             $table->id();
             $table->string('kode', 10)->unique();
             $table->string('nama', 100);
-            $table->unsignedTinyInteger('sks');
-            $table->unsignedTinyInteger('semester');
+            $table->integer('sks');
+            $table->integer('semester');
             $table->timestamps();
         });
     }

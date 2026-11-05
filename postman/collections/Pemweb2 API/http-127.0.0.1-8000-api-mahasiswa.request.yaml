@@ -1,0 +1,26 @@
+$kind: http-request
+name: " http://127.0.0.1:8000/api/mahasiswa"
+description: ""
+url: " http://127.0.0.1:8000/api/mahasiswa"
+method: POST
+headers:
+  Accept: application/json
+  Content-Type: application/json
+body:
+  type: json
+  content: "{\r
+
+    \ \"program_studi_id\": 1,\r
+
+    \ \"nim\": \"H1A125999\",\r
+
+    \ \"nama\": \"Dewi Anggraini\",\r
+
+    \ \"email\": \"dewi.anggraini@example.com\",\r
+
+    \ \"angkatan\": 2025,\r
+
+    \ \"ipk\": 3.65\r
+
+    }"
+order: 1000

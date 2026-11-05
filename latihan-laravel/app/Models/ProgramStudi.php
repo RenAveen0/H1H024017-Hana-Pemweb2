@@ -9,8 +9,10 @@ class ProgramStudi extends Model
 {
     protected $table = 'program_studis';
     protected $fillable = ['kode', 'nama', 'jenjang'];
-    public function mahasiswa(): HasMany
+    protected $guarded = ['id'];
+    
+    public function mahasiswas(): HasMany
     {
-        return $this->hasMany(Mahasiswa::class);
+        return $this->hasMany(Mahasiswa::class, 'program_studi_id');
     }
 }
