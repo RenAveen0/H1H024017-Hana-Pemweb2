@@ -14,9 +14,22 @@ func Daftarkan(app *fiber.App) {
 			"pesan": "API Fiber aktif",
 		})
 	})
+
 	// Contoh menerapkan KunciApi khusus pada grup mahasiswa
 	mahasiswa := api.Group("/mahasiswa", middleware.KunciApi()) 
 	mahasiswa.Get("/", handler.DaftarMahasiswa)
-	mahasiswa.Get("/nim/:nim", handler.DetailMahasiswaByNim)
+	mahasiswa.Post("/", handler.BuatMahasiswa)
 	mahasiswa.Get("/:id", handler.DetailMahasiswa)
+	mahasiswa.Put("/:id", handler.PerbaruiMahasiswa)
+	mahasiswa.Delete("/:id", handler.HapusMahasiswa)
+	mahasiswa.Patch("/:id/pulihkan", handler.PulihkanMahasiswa)
+
+	matakuliah := api.Group("/matakuliah", middleware.KunciApi())
+	matakuliah.Get("/", handler.DaftarMatakuliah)
+	matakuliah.Post("/", handler.BuatMatakuliah)
+	matakuliah.Get("/:id", handler.DetailMatakuliah)
+	matakuliah.Put("/:id", handler.PerbaruiMatakuliah)
+	matakuliah.Delete("/:id", handler.HapusMatakuliah)
+
+	api.Get("/program-studi", handler.DaftarProgramStudiDenganJumlahMahasiswa)
 }
