@@ -38,17 +38,25 @@ class MahasiswaController extends Controller
         return MahasiswaResource::collection($kueri->paginate($perHalaman));
     }
 
-    public function store(StoreMahasiswaRequest $request): JsonResponse
+    public function store(Request $request): JsonResponse
     {
-        $mahasiswa = Mahasiswa::create($request->validated());
-        $mahasiswa->load('programStudi');
+        $validatedData = $request->validate([
+            'program_studi_id' => ['required', 'exists:program_studis,id'],
+            'nim' => ['required', 'string', 'max:20', 'unique:mahasiswas,nim'],
+            'nama' => ['required', 'string', 'max:100'],
+            'email' => ['required', 'email', 'max:100', 'unique:mahasiswas,email'],
+            'angkatan' => ['required', 'integer'],
+            'ipk' => ['required', 'numeric', 'min:0', 'max:4'],
+        ]);
+
+        $mahasiswa = Mahasiswa::create($validatedData);
+
         return response()->json([
             'sukses' => true,
-            'pesan' => 'Data mahasiswa berhasil dibuat',
-            'data' => new MahasiswaResource($mahasiswa),
+            'pesan' => 'Data mahasiswa berhasil ditambahkan',
+            'data' => $mahasiswa
         ], 201);
     }
-
     public function show(Mahasiswa $mahasiswa): JsonResponse
     {
         $mahasiswa->load('programStudi');
