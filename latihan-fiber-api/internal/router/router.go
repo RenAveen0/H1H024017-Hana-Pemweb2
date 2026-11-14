@@ -15,16 +15,21 @@ func Daftarkan(app *fiber.App) {
 		})
 	})
 
-	// Contoh menerapkan KunciApi khusus pada grup mahasiswa
-	mahasiswa := api.Group("/mahasiswa", middleware.KunciApi()) 
-	mahasiswa.Get("/", handler.DaftarMahasiswa)
-	mahasiswa.Post("/", handler.BuatMahasiswa)
-	mahasiswa.Get("/:id", handler.DetailMahasiswa)
-	mahasiswa.Put("/:id", handler.PerbaruiMahasiswa)
-	mahasiswa.Delete("/:id", handler.HapusMahasiswa)
-	mahasiswa.Patch("/:id/pulihkan", handler.PulihkanMahasiswa)
+	api.Post("/auth/registrasi", handler.Registrasi)
+	api.Post("/auth/login", handler.Login)
 
-	matakuliah := api.Group("/matakuliah", middleware.KunciApi())
+	terlindungi := api.Group("", middleware.Autentikasi())
+	terlindungi.Get("/auth/profil", handler.Profil)
+	terlindungi.Post("/auth/segarkan", handler.SegarkanToken)
+
+	mahasiswa := terlindungi.Group("/mahasiswa")
+	mahasiswa.Get("/", handler.DaftarMahasiswa)
+	mahasiswa.Get("/:id", handler.DetailMahasiswa)
+	mahasiswa.Post("/", handler.BuatMahasiswa, middleware.HanyaPeran("admin", "dosen"))
+	mahasiswa.Put("/:id", handler.PerbaruiMahasiswa, middleware.HanyaPeran("admin", "dosen"))
+	mahasiswa.Delete("/:id", handler.HapusMahasiswa, middleware.HanyaPeran("admin"))
+
+	matakuliah := api.Group("/matakuliah")
 	matakuliah.Get("/", handler.DaftarMatakuliah)
 	matakuliah.Post("/", handler.BuatMatakuliah)
 	matakuliah.Get("/:id", handler.DetailMatakuliah)

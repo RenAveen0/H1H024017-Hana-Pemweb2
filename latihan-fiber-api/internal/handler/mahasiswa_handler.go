@@ -7,6 +7,7 @@ import (
 	"gorm.io/gorm"
 	"latihan-fiber-api/internal/model"
 	"latihan-fiber-api/internal/repository"
+	"latihan-fiber-api/internal/validasi"
 )
 
 func DaftarMahasiswa(c fiber.Ctx) error {
@@ -76,10 +77,21 @@ func BuatMahasiswa(c fiber.Ctx) error {
 	if err != nil {
 		return fiber.NewError(fiber.StatusBadRequest, "Format body tidak valid")
 	}
+	
 	aktif := true
 	
 	if permintaan.Aktif != nil {
 		aktif = *permintaan.Aktif
+	}
+
+	galat := validasi.Periksa(permintaan)
+	
+	if galat != nil {
+		return c.Status(fiber.StatusUnprocessableEntity).JSON(fiber.Map{
+			"sukses": false,
+			"pesan": "Data yang dikirim tidak valid",
+			"galat": galat,
+		})
 	}
 	
 	mahasiswa := model.Mahasiswa{
